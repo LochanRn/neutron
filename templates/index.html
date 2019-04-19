@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rudra 18</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/vendor/bootstrap.css">
+    <link rel="stylesheet" href="../css/vendor/leaflet.css">
+    <link rel="stylesheet" href="../css/vendor/photon.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../css/vendor/leaflet-offline.css">
+    <link rel="stylesheet" href="../css/vendor/L.Control.MousePosition.css">
+    <link rel="stylesheet" href="../css/vendor/Leaflet.Coordinates.css">
+  </head>
+
+  <body style="background-color: rgb(150,150,150)">
+    <div class="window">
+        <div class="window-content">
+          <div class="pane-group">
+            <div class="pane-one-fourth sidebar">
+                {% include "./sidebar.html" %}
+            </div>
+            <div class="pane">
+                {% include "./map.html" %}
+                {% include "./info.html" %}
+            </div>
+          </div>
+        </div>
+        {% include "./footer.html" %}
+      </div>
+
+    <!-- JS -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="../js/vendor/jquery.js"></script>
+    <script src="../js/vendor/leaflet.js"></script>
+    <script src="../js/vendor/leaflet-offline.js"></script>
+    <script src="../js/vendor/localforage.js"></script>
+    <script src="../js/vendor/Leaflet.Coordinates.min.js"></script>
+    <script src="../js/vendor/L.Control.MousePosition.js"></script>
+    <script>
+      // renderer process for this page.
+      require('../js/app.js');
+    </script>
+    <script>if (window.module) module = window.module;</script>
+  </body>
+</html>

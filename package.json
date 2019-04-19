@@ -1,0 +1,22 @@
+{
+  "name": "neutron",
+  "version": "0.0.1",
+  "description": "Control GUI for Rudra 18",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/vshelke/neutron",
+  "keywords": [
+    "Rudra"
+  ],
+  "author": "rudra-coders",
+  "license": "Private",
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron": "~1.8.2"
+  },
+  "dependencies": {
+    "electron-nunjucks": "^1.0.3"
+  }
+}
