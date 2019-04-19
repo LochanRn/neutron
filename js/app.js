@@ -79,3 +79,18 @@ $('#load').click(function() {
     data = data.slice(0, -1) + '$';
     link.sendData(data, 1);
 });
+
+for ( i=1 ; i<5; i++){
+  $('#k' + i).click(function(){
+    var a = $(this).attr('id');
+    if ($(this).hasClass('btn-danger')) {
+        $(this).removeClass('btn-danger').addClass('btn-positive').html('Stop');
+       link.sendData1("~" + a[1] + "~");
+    } else if ($(this).hasClass('btn-positive')) {
+        $(this).removeClass('btn-positive').addClass('btn-danger').html('Start');
+        // var b = parseInt(-a[1]);
+       link.sendData1("~" + -a[1] + "~");
+    }
+  });
+
+}
