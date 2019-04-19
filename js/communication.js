@@ -1,8 +1,9 @@
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
 var needle = require('./compass');
-var host = '192.168.1.31';
+var host = '10.4.168.215';
 var port = 3301;
+var port1 = 3302;
 var allowData = false;
 var oldPoint = 0;
 
@@ -50,6 +51,15 @@ var sendData = function(data, override) { // data should be string
     }
 }
 
+var sendData1 = function(data, override){
+     var message = new Buffer(data);
+    server.send(message,0,message.length, port1, host, function(err, bytes){
+      if (err) console.error(err);
+      $("#up").html(` ${bytes}b`);
+    });
+  
+}
+
 var processMessage = function(map, msg) {
     var data = new TextDecoder("ascii").decode(msg);
     // console.log(data);
@@ -90,3 +100,4 @@ var processMessage = function(map, msg) {
 
 module.exports.setupServer = setupServer;
 module.exports.sendData = sendData;
+module.exports.sendData1 = sendData1;
