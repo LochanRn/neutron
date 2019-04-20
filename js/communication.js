@@ -3,7 +3,7 @@ const server = dgram.createSocket('udp4');
 var needle = require('./compass');
 var host = '10.4.168.215';
 var port = 3301;
-var port1 = 3302;
+var portFile = 3302;
 var allowData = false;
 var oldPoint = 0;
 
@@ -47,17 +47,20 @@ var sendData = function(data, override) { // data should be string
             $("#up").html(` ${bytes}b`);
             // TODO create log
         });
-        // console.log(data);
     }
 }
 
-var sendData1 = function(data, override){
+$('#k1').click(function(){
+  host = $("#processip").val().split(":")[0];
+  portFile = $("#processip").val().split(":")[1];
+});
+
+var sendFileNo = function(data){
      var message = new Buffer(data);
-    server.send(message,0,message.length, port1, host, function(err, bytes){
+    server.send(message,0,message.length, portFile, host, function(err, bytes){
       if (err) console.error(err);
       $("#up").html(` ${bytes}b`);
     });
-  
 }
 
 var processMessage = function(map, msg) {
@@ -100,4 +103,4 @@ var processMessage = function(map, msg) {
 
 module.exports.setupServer = setupServer;
 module.exports.sendData = sendData;
-module.exports.sendData1 = sendData1;
+module.exports.sendFileNo = sendFileNo  ;
