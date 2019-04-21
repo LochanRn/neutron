@@ -3,7 +3,7 @@ const server = dgram.createSocket('udp4');
 var needle = require('./compass');
 var host = '10.4.168.215';
 var port = 3301;
-var portFile = 3302;
+var portFile = 3300;
 var allowData = false;
 var oldPoint = 0;
 
