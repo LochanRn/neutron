@@ -50,14 +50,13 @@ var sendData = function(data, override) { // data should be string
     }
 }
 
-$('#k1').click(function(){
-  host = $("#processip").val().split(":")[0];
-  portFile = $("#processip").val().split(":")[1];
-});
-
 var sendFileNo = function(data){
-     var message = new Buffer(data);
-    server.send(message,0,message.length, portFile, host, function(err, bytes){
+
+      host = $("#processip").val().split(":")[0];
+      portFile = $("#processip").val().split(":")[1];
+
+      var message = new Buffer(data);
+      server.send(message,0,message.length, portFile, host, function(err, bytes){
       if (err) console.error(err);
       $("#up").html(` ${bytes}b`);
     });

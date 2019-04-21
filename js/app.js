@@ -10,17 +10,17 @@ var DATA_RATE = 1; //ms
 
 var map = MapLayer.initMap(12.821260, 80.038329);//12.821260, 80.038329
 var ploticon = MapLayer.getIcons("../images/Black_dot.png");
-var testicon = MapLayer.getIcons("../images/pointer_marker.png",[35,35]);
+// var testicon = MapLayer.getIcons("../images/pointer_marker.png",[35,35]);
+
 link.setupServer(map, 23907); // Groud Station server listning on 23907 never change!!!!
 control.initKeyboard();
 
 // setting up required listners
 setInterval(function() {
     var data = control.processKeys();
-    link.sendData("<" + data[0] + "," + data[1] + ">", 0);
+    // console.log(data);
+    link.sendData("<" + data[1] + "," + data[0] + "!" + data[2] + ";" + data[3] + ">", 0);
 }, DATA_RATE);
-
-
 
 map.on('click', function(e) {
     if (point[count])
