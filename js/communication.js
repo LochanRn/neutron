@@ -1,7 +1,7 @@
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
 var needle = require('./compass');
-var host = '10.4.168.215';
+var host = '127.0.0.1';
 var port = 3301;
 var portFile = 3300;
 var allowData = false;
@@ -15,7 +15,7 @@ var setupServer = function(map, port) {
     server.on('message', (msg, rinfo) => {
         $("#rover").html(`${rinfo.address}:${rinfo.port}`);
         processMessage(map, msg, rinfo);
-        // console.log(head);
+        // console.log(msg);
         $("#down").html(` ${msg.length}b`);
         // return head;
     });
@@ -51,7 +51,6 @@ var sendData = function(data, override) { // data should be string
 }
 
 var sendFileNo = function(data){
-
       host = $("#processip").val().split(":")[0];
       portFile = $("#processip").val().split(":")[1];
 
@@ -64,7 +63,19 @@ var sendFileNo = function(data){
 
 var processMessage = function(map, msg) {
     var data = new TextDecoder("ascii").decode(msg);
-    // console.log(data);
+    console.log(data);
+
+    if(data[0]=='@')
+      $('#k' + data[1]).removeClass('btn-danger').addClass('btn-positive').html('Stop');
+    if(data[0]=='?')
+      $('#k' + data[1]).removeClass('btn-positive').addClass('btn-negative').html('Error');
+
+    if(data[0]=="~")
+      $('#k'+ data[1]).removeClass('btn-positive').addClass('btn-danger').html('Start');
+
+    if(data[0]=='!')
+      $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-positive').html('Start');
+
     if(data[0]=='$')
     {
       var dat = data.split(",");
@@ -88,6 +99,7 @@ var processMessage = function(map, msg) {
     }
     if (data[0] === '{')
         data = JSON.parse(data);
+
     if (data.class === 'TPV') {
         // console.log(data.lat + " , " + data.lon);
         $('#latitude').html(data.lat);
