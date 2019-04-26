@@ -14,7 +14,7 @@
   "license": "Private",
   "devDependencies": {
     "devtron": "^1.4.0",
-    "electron": "~1.8.2"
+    "electron": "^1.8.8"
   },
   "dependencies": {
     "electron-nunjucks": "^1.0.3"
