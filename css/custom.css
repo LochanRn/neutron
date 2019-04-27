@@ -1,5 +1,5 @@
-#map { 
-    height: 85%; 
+#map {
+    height: 85%;
 }
 
 #info {
@@ -9,12 +9,15 @@
     overflow-y: auto;
 }
 
-.ipBox, .stats, .waypoints, .controls {
+.ipBox, .stats, .waypoints, .controls{
 	padding-top: 10px;
 	padding-bottom: 10px;
 	border-bottom: solid 1px rgb(221,221,221);
 }
 
+.file{
+  padding-top: 10px;
+}
 .red {
     color: #FC605B;
 }

@@ -4,6 +4,7 @@ var control = require('./keyboard');
 var needle = require('./compass');
 
 var point = [0, 0, 0, 0, 0];
+var fileName =['Index', 'Micro', 'Spectro', 'Other']
 var count = 0;
 
 var DATA_RATE = 1; //ms
@@ -83,14 +84,21 @@ $('#load').click(function() {
 for ( i=1 ; i<5; i++){
   $('#k' + i).click(function(){
     var a = $(this).attr('id');
-    if ($(this).hasClass('btn-danger')) {
-        $(this).removeClass('btn-danger').addClass('btn-positive').html('Stop');
-       link.sendData1("~" + a[1] + "~");
-    } else if ($(this).hasClass('btn-positive')) {
-        $(this).removeClass('btn-positive').addClass('btn-danger').html('Start');
-        // var b = parseInt(-a[1]);
-       link.sendData1("~" + -a[1] + "~");
+    if (a[1]==1){
+      $("#updStatus").prop('disabled',false);
     }
+    if ($(this).hasClass('btn-danger')) {
+        link.sendFileNo("~" + a[1] + "~");
+    } else if ($(this).hasClass('btn-positive')) {
+      if(a[1]==1)
+        $("#updStatus").prop('disabled',true);
+      link.sendFileNo("~" + -a[1] + "~");
+    }
+    else if($(this).hasClass('btn-negative')){
+      $(this).removeClass('btn-negative').addClass('btn-danger').html('Start');
+          link.sendFileNo("~" + -a[1] + "~");
+    }
+
   });
 
 }
