@@ -1,6 +1,9 @@
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
-var needle = require('./compass');
+//var needle = require('./compass');
+var sim = require('./3dsimulator');
+var dat=[];
+var anglex=0, angley=0, anglez=0;
 var host = '127.0.0.1';
 var port = 3301;
 var portMaster = 3300;
@@ -8,18 +11,20 @@ var allowData = false;
 var processStatus = false;
 var oldPoint = 0;
 
+
 var setupServer = function(map, port) {
     server.on('error', (err) => {
         console.error(`server error:\n${err.stack}`);
         server.close();
     });
-    server.on('message', (msg, rinfo) => {
+
+        server.on('message', (msg, rinfo) => {
         $("#rover").html(`${rinfo.address}:${rinfo.port}`);
         processMessage(map, msg, rinfo);
-        // console.log(msg);
+        simulate3D(msg);         
         $("#down").html(` ${msg.length}b`);
-        // return head;
     });
+               
     server.on('listening', () => {
         const address = server.address();
         $("#station").html(`${address.address}:${address.port}`);
@@ -87,7 +92,7 @@ var processMessage = function(map, msg) {
       var dat = data.split(",");
       // console.log(typeof(parseFloat(dat[1])));
       $('#heading').html(dat[1]);
-      needle.compass(dat[1]);
+      //needle.compass(dat[1]);
       if(dat[2]=='%')
       {
         $('[id^=send]').prop('disabled', false);
@@ -114,6 +119,32 @@ var processMessage = function(map, msg) {
             map.removeLayer(oldPoint);
         oldPoint = L.marker([data.lat, data.lon])
         oldPoint = oldPoint.addTo(map);
+    }
+}
+
+var simulate3D = function(msgProcess){
+ var data = `${msgProcess}`;
+    if(data[0]==='$')
+    {
+      dat = data.split(",");
+      anglex+=parseFloat(dat[1]);
+      angley+=parseFloat(dat[2]);
+      anglez+=parseFloat(dat[3]);
+//setInterval(function() {
+      // if(anglex>1.57)
+      // {
+      // anglex=0;
+      // angley=0;
+      // anglez=0;
+      // }
+
+      // anglex+=0.01;
+      // angley+=0.01;
+      // anglez+=0.01;
+      sim.callRenderer(anglex, angley, anglez);
+    
+//}, 1);
+
     }
 }
 
