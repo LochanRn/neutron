@@ -3,8 +3,9 @@ const server = dgram.createSocket('udp4');
 var needle = require('./compass');
 var host = '127.0.0.1';
 var port = 3301;
-var portFile = 3300;
+var portMaster = 3300;
 var allowData = false;
+var processStatus = false;
 var oldPoint = 0;
 
 var setupServer = function(map, port) {
@@ -27,8 +28,8 @@ var setupServer = function(map, port) {
 
     // required listners
     $('#updStatus').click(function() {
-        host = $("#roverip").val().split(":")[0];
-        port = $("#roverip").val().split(":")[1];
+        host = $("#processip").val().split(":")[0];
+        port = $("#roverip").val();
         if ($(this).hasClass('btn-warning')) {
             $(this).removeClass('btn-warning').addClass('btn-positive').html('Stop');
             allowData = true;
@@ -52,32 +53,37 @@ var sendData = function(data, override) { // data should be string
 
 var sendFileNo = function(data){
       host = $("#processip").val().split(":")[0];
-      portFile = $("#processip").val().split(":")[1];
+      portMaster = $("#processip").val().split(":")[1];
 
       var message = new Buffer(data);
-      server.send(message,0,message.length, portFile, host, function(err, bytes){
+      server.send(message,0,message.length, portMaster, host, function(err, bytes){
       if (err) console.error(err);
       $("#up").html(` ${bytes}b`);
     });
 }
 
 var processMessage = function(map, msg) {
-    var data = new TextDecoder("ascii").decode(msg);
-    console.log(data);
 
-    if(data[0]=='@')
+  var data = new TextDecoder("ascii").decode(msg);
+    // console.log(data);
+
+    if(data[0]=='@'){
       $('#k' + data[1]).removeClass('btn-danger').addClass('btn-positive').html('Stop');
+      if (data[1] == 1)
+        $("#updStatus").prop('disabled', false);    
+    }
     if(data[0]=='?')
       $('#k' + data[1]).removeClass('btn-positive').addClass('btn-negative').html('Error');
 
-    if(data[0]=="~")
+    if(data[0]=="~"){
       $('#k'+ data[1]).removeClass('btn-positive').addClass('btn-danger').html('Start');
+      if (data[1] == 1)
+        $("#updStatus").prop('disabled', true);      
+    }
+    // if(data[0]=='!')
+    //   $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-positive').html('Start');
 
-    if(data[0]=='!')
-      $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-positive').html('Start');
-
-    if(data[0]=='$')
-    {
+    if(data[0]=='$'){
       var dat = data.split(",");
       // console.log(typeof(parseFloat(dat[1])));
       $('#heading').html(dat[1]);
@@ -88,8 +94,7 @@ var processMessage = function(map, msg) {
         $('#autoStatus').removeClass('red').removeClass('green').addClass('yellow');
       }
       // console.log((dat[2]));
-      else if(dat[2].indexOf("destination:") !== -1)
-      {
+      else if(dat[2].indexOf("destination:") !== -1){
         $('#info').html(dat[2]);
         if(dat[3] == "~"){
           $('#send').prop('disabled', false);
@@ -114,4 +119,5 @@ var processMessage = function(map, msg) {
 
 module.exports.setupServer = setupServer;
 module.exports.sendData = sendData;
-module.exports.sendFileNo = sendFileNo  ;
+module.exports.sendFileNo = sendFileNo;
+module.exports.processStatus = processStatus;

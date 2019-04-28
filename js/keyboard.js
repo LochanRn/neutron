@@ -5,7 +5,7 @@ var keyMap = { "1":false, "2":false, "3":false, "4":false, "6":false, "8":false 
             };
 var initKeyboard = function() {
     $('body').keydown(function(event) {
-        console.log(event.key);
+        // console.log(event.key);
         if (keyMap.hasOwnProperty(event.key))
             keyMap[event.key] = true;
     });
