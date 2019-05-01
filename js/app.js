@@ -1,6 +1,7 @@
 var MapLayer = require('./map');
 var link = require('./communication');
 var control = require('./keyboard');
+var tel = require('./tel');
 // var needle = require('./compass');
 
 var point = [0, 0, 0, 0, 0];
@@ -8,7 +9,6 @@ var fileName = ['Index', 'Micro', 'Spectro', 'ImageProcessing'];
 var count = 0;
 
 var DATA_RATE = 1; //ms
-
 var map = MapLayer.initMap(12.821260, 80.038329); //12.821260, 80.038329
 var ploticon = MapLayer.getIcons("../images/Black_dot.png");
 // var testicon = MapLayer.getIcons("../images/pointer_marker.png",[35,35]);
@@ -22,6 +22,8 @@ setInterval(function () {
     // console.log(data);
     link.sendData("<" + data[1] + "," + data[0] + "!" + data[2] + ";" + data[3] + ">", 0);
 }, DATA_RATE);
+
+tel.run();
 
 map.on('click', function (e) {
     if (point[count])
