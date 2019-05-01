@@ -28,6 +28,7 @@ var setupServer = function(map, port) {
     server.on('listening', () => {
         const address = server.address();
         $("#station").html(`${address.address}:${address.port}`);
+        updatestrength(35);
     });
     server.bind(port);
 
@@ -66,6 +67,21 @@ var sendFileNo = function(data){
       $("#up").html(` ${bytes}b`);
     });
 }
+
+var updatestrength = function(updata) { 
+  var element = document.getElementById("myprogressBar");    
+  var width = 1; 
+  var identity = setInterval(scene, 10); 
+  function scene() { 
+    if (width >= 100) { 
+      clearInterval(identity); 
+    } else { 
+      width++;  
+      element.style.width = updata + '%';  
+      element.innerHTML = updata * 1  + '%'; 
+    } 
+  } 
+} 
 
 var processMessage = function(map, msg) {
 
