@@ -1,7 +1,7 @@
 var keyMap = { "1":false, "2":false, "3":false, "4":false, "6":false, "8":false ,  
-               "e":false, "q":false, "a":false, "s":false, "d":false, "w":false , 
-               "z":false, "/":false, "ArrowRight":false, "ArrowLeft":false , "ArrowDown":false , "ArrowUp":false , "Shift":false, 
-               "r":false, "o":false, "i":false, "l":false, "k":false, "j":false 
+               "e":false, "q":false, "a":false, "s":false, "d":false, "w":false ,
+               "z":false, "/":false, "ArrowRight":false, "ArrowLeft":false , "ArrowDown":false , "ArrowUp":false , "Shift":false,
+               "r":false, "o":false, "i":false, "l":false, "k":false, "j":false
             };
 var initKeyboard = function() {
     $('body').keydown(function(event) {

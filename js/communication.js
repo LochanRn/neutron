@@ -21,7 +21,7 @@ var setupServer = function(map, port) {
         server.on('message', (msg, rinfo) => {
         $("#rover").html(`${rinfo.address}:${rinfo.port}`);
         processMessage(map, msg, rinfo);
-        simulate3D(msg);
+      ///  simulate3D(msg);
         $("#down").html(` ${msg.length}b`);
     });
 
@@ -69,17 +69,20 @@ var sendFileNo = function(data){
 
 var processMessage = function(map, msg) {
 
-  var data = new TextDecoder("ascii").decode(msg);
-    // console.log(data);
+    var data = new TextDecoder("ascii").decode(msg);
+
+    // console.log(msg);
    switch (data[0]) {
      case '@':  $('#k' + data[1]).removeClass('btn-danger').addClass('btn-positive').html('Stop');
                 if (data[1] == 1)
                   $("#updStatus").prop('disabled', false);
+                break;
      break;
-     case '~':  $('#k'+ data[1]).removeClass('btn-positive').addClass('btn-danger').html('Start'); break;
+     case '~':  $('#k'+ data[1]).removeClass('btn-positive').addClass('btn-danger').html('Start');
                 if (data[1] == 1){
                   $("#updStatus").prop('disabled', true);
                   allowData = false;}
+                  break;
      break;
      case '?':  $('#k' + data[1]).removeClass('btn-positive').addClass('btn-negative').html('Execv Error'); break;
      case '!':  $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-positive').html('Stop'); break;
