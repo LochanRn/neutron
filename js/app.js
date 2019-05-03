@@ -1,7 +1,7 @@
 var MapLayer = require('./map');
 var link = require('./communication');
 var control = require('./keyboard');
-var tel = require('./tel');
+// var tel = require('./tel');
 // var needle = require('./compass');
 
 var point = [0, 0, 0, 0, 0];
@@ -22,8 +22,6 @@ setInterval(function () {
     // console.log(data);
     link.sendData("<" + data[1] + "," + data[0] + "!" + data[2] + ";" + data[3] + ">", 0);
 }, DATA_RATE);
-
-tel.run();
 
 map.on('click', function (e) {
     if (point[count])
@@ -89,14 +87,9 @@ for (i = 1; i < 5; i++) {
     $('#fileName' + i).html(fileName[i-1]);
     $('#k' + i).click(function () {
         var a = $(this).attr('id');
-        // console.log(link.processStatus);
         if ($(this).hasClass('btn-danger')) {
-            // if (a[1] == 1) 
-            //     $("#updStatus").prop('disabled', false);
             link.sendFileNo("~" + a[1] + "~");
         } else if ($(this).hasClass('btn-positive')) {
-            // if (a[1] == 1)
-            //     $("#updStatus").prop('disabled', true);
             link.sendFileNo("~" + -a[1] + "~");
         } else if ($(this).hasClass('btn-negative')) {
             $(this).removeClass('btn-negative').addClass('btn-danger').html('Start');

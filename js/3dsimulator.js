@@ -11,7 +11,7 @@ function webGLRenderer(anglx, angly, anglz){
 if(!counter){
 	counter=1;
 	//var container = document.getElementById('3dsimulate');
-	
+
 	renderer = new THREE.WebGLRenderer();
 	renderer.setSize(300, 250);
 	renderer.setClearColor (0xffffff, 1);
@@ -38,10 +38,9 @@ function render() {
 		cube.rotation.x = anglx;
 		cube.rotation.y = angly;
 		cube.rotation.z = anglz;
-    renderer.render(scene, camera);
+   renderer.render(scene, camera);
   }
 render();
 }
 
 module.exports.callRenderer = callRenderer;
-
