@@ -11,7 +11,6 @@ var portMaster = 3300;
 var allowData = false;
 var oldPoint = 0;
 
-
 var setupServer = function(map, port) {
     server.on('error', (err) => {
         console.error(`server error:\n${err.stack}`);
@@ -94,7 +93,7 @@ var processMessage = function(map, msg) {
       var dat = data.split(",");
       // console.log(typeof(parseFloat(dat[1])));
       $('#heading').html(dat[1]);
-      //needle.compass(dat[1]);
+      needle.compass(dat[1]);
       if(dat[2]=='%')
       {
         $('[id^=send]').prop('disabled', false);
@@ -145,9 +144,6 @@ var simulate3D = function(msgProcess){
       // angley+=0.01;
       // anglez+=0.01;
       sim.callRenderer(anglex, angley, anglez);
-
-//}, 1);
-
     }
 }
 

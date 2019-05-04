@@ -1,7 +1,7 @@
 {
   "name": "neutron",
   "version": "0.0.1",
-  "description": "Control GUI for Rudra 18",
+  "description": "Control GUI for Rudra 19",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
@@ -17,6 +17,7 @@
     "electron": "^1.8.8"
   },
   "dependencies": {
-    "electron-nunjucks": "^1.0.3"
+    "electron-nunjucks": "^1.0.3",
+    "three.js": "^0.77.1"
   }
 }
