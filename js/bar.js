@@ -5,7 +5,6 @@ var updatestrength = function(updata) {
       width++;
       element.style.width = updata + '%';
       element.innerHTML = updata * 1  + '%';
-
   }
   scene();
 }
