@@ -87,14 +87,9 @@ for (i = 1; i < 5; i++) {
     $('#fileName' + i).html(fileName[i-1]);
     $('#k' + i).click(function () {
         var a = $(this).attr('id');
-        // console.log(link.processStatus);
         if ($(this).hasClass('btn-danger')) {
-            // if (a[1] == 1) 
-            //     $("#updStatus").prop('disabled', false);
             link.sendFileNo("~" + a[1] + "~");
         } else if ($(this).hasClass('btn-positive')) {
-            // if (a[1] == 1)
-            //     $("#updStatus").prop('disabled', true);
             link.sendFileNo("~" + -a[1] + "~");
         } else if ($(this).hasClass('btn-negative')) {
             $(this).removeClass('btn-negative').addClass('btn-danger').html('Start');
