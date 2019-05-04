@@ -80,12 +80,15 @@ var processMessage = function(map, msg) {
      break;
      case '~':  $('#k'+ data[1]).removeClass('btn-positive').addClass('btn-danger').html('Start');
                 if (data[1] == 1){
+                  $('#updStatus').removeClass('btn-positive').addClass('btn-warning').html('Start');
                   $("#updStatus").prop('disabled', true);
                   allowData = false;}
                   break;
      break;
      case '?':  $('#k' + data[1]).removeClass('btn-positive').addClass('btn-negative').html('Execv Error'); break;
-     case '!':  $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-positive').html('Stop'); break;
+     case '!':  $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-positive').html('Stop'); 
+                $("#updStatus").prop('disabled', false);
+                break;
      case '^':  $('#k'+ data[1]).removeClass('btn-positive').addClass('btn-danger').html('Start'); break;
      case '%':  $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-negative').html('Fork Error'); break;
      default: break;

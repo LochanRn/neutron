@@ -21,7 +21,7 @@ async function run(){
   } catch(error) {
     // handle the throw (timeout)
 }
-while(1){
+  while(1){
   // setTimeout(function(){
   let res = await connection.exec('iwconfig')
   var result = (res.substr(482,41)) //479 45 493 2
