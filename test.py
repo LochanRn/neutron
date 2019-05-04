@@ -34,7 +34,7 @@ while True:
 	f=st.encode('utf-8')
 	s.sendto(f,(ADDRESS,port))
 	print("ok")
-	time.sleep(1)
+	time.sleep(0.01)
 
 
 
