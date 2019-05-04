@@ -1,14 +1,14 @@
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
-var needle = require('./compass');
 var sim = require('./3dsimulator');
+//var needle = require('./compass');
+
 var dat=[];
 var anglex=0, angley=0, anglez=0;
 var host = '127.0.0.1';
 var port = 3301;
 var portMaster = 3300;
 var allowData = false;
-var processStatus = false;
 var oldPoint = 0;
 
 var setupServer = function(map, port) {
@@ -20,10 +20,10 @@ var setupServer = function(map, port) {
         server.on('message', (msg, rinfo) => {
         $("#rover").html(`${rinfo.address}:${rinfo.port}`);
         processMessage(map, msg, rinfo);
-        simulate3D(msg);         
+      ///  simulate3D(msg);
         $("#down").html(` ${msg.length}b`);
     });
-               
+
     server.on('listening', () => {
         const address = server.address();
         $("#station").html(`${address.address}:${address.port}`);
@@ -68,25 +68,27 @@ var sendFileNo = function(data){
 
 var processMessage = function(map, msg) {
 
-  var data = new TextDecoder("ascii").decode(msg);
-    // console.log(data);
+    var data = new TextDecoder("ascii").decode(msg);
 
-    if(data[0]=='@'){
-      $('#k' + data[1]).removeClass('btn-danger').addClass('btn-positive').html('Stop');
-      if (data[1] == 1)
-        $("#updStatus").prop('disabled', false);    
-    }
-    if(data[0]=='?')
-      $('#k' + data[1]).removeClass('btn-positive').addClass('btn-negative').html('Error');
-
-    if(data[0]=="~"){
-      $('#k'+ data[1]).removeClass('btn-positive').addClass('btn-danger').html('Start');
-      if (data[1] == 1)
-        $("#updStatus").prop('disabled', true);      
-    }
-    // if(data[0]=='!')
-    //   $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-positive').html('Start');
-
+    // console.log(msg);
+   switch (data[0]) {
+     case '@':  $('#k' + data[1]).removeClass('btn-danger').addClass('btn-positive').html('Stop');
+                if (data[1] == 1)
+                  $("#updStatus").prop('disabled', false);
+                break;
+     break;
+     case '~':  $('#k'+ data[1]).removeClass('btn-positive').addClass('btn-danger').html('Start');
+                if (data[1] == 1){
+                  $("#updStatus").prop('disabled', true);
+                  allowData = false;}
+                  break;
+     break;
+     case '?':  $('#k' + data[1]).removeClass('btn-positive').addClass('btn-negative').html('Execv Error'); break;
+     case '!':  $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-positive').html('Stop'); break;
+     case '^':  $('#k'+ data[1]).removeClass('btn-positive').addClass('btn-danger').html('Start'); break;
+     case '%':  $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-negative').html('Fork Error'); break;
+     default: break;
+  }
     if(data[0]=='$'){
       var dat = data.split(",");
       // console.log(typeof(parseFloat(dat[1])));
@@ -123,7 +125,9 @@ var processMessage = function(map, msg) {
 
 var simulate3D = function(msgProcess){
  var data = `${msgProcess}`;
-    if(data[0]==='$'){
+ console.log(msgProcess);
+    if(data[0]=='$')
+    {
       dat = data.split(",");
       anglex+=parseFloat(dat[1]);
       angley+=parseFloat(dat[2]);
@@ -140,11 +144,9 @@ var simulate3D = function(msgProcess){
       // angley+=0.01;
       // anglez+=0.01;
       sim.callRenderer(anglex, angley, anglez);
-//}, 1);
     }
 }
 
 module.exports.setupServer = setupServer;
 module.exports.sendData = sendData;
 module.exports.sendFileNo = sendFileNo;
-module.exports.processStatus = processStatus;
