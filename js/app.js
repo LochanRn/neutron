@@ -1,9 +1,8 @@
 var MapLayer = require('./map');
 var link = require('./communication');
 var control = require('./keyboard');
-
-// var needle = require('./compass');
-
+var tel = require('./tel');
+var joy = require('./xbox');
 var point = [0, 0, 0, 0, 0];
 var fileName = ['Index', 'Micro', 'Spectro', 'ImageProcessing'];
 var count = 0;
@@ -19,8 +18,12 @@ control.initKeyboard();
 // setting up required listners
 setInterval(function () {
     var data = control.processKeys();
+    var joyData = joy.processKeys();
+    //if()
     // console.log(data);
-    link.sendData("<" + data[1] + "," + data[0] + "!" + data[2] + ";" + data[3] + ">", 0);
+    link.sendData("<"+data[1]+","+data[0]+","+data[2]+","+data[3] +","+ joyData[0] + "," + joyData[1]+">", 0);
+    
+   //link.sendData("<"+data[0]+","+data[1]+"!"+joyData[0]+";"+joyData[1]);
 }, DATA_RATE);
 
 map.on('click', function (e) {
