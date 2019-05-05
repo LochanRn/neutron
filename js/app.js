@@ -1,7 +1,6 @@
 var MapLayer = require('./map');
 var link = require('./communication');
 var control = require('./keyboard');
-var tel = require('./tel');
 var joy = require('./xbox');
 var point = [0, 0, 0, 0, 0];
 var fileName = ['Index', 'Micro', 'Spectro', 'ImageProcessing'];
