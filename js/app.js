@@ -1,8 +1,12 @@
 var MapLayer = require('./map');
 var link = require('./communication');
 var control = require('./keyboard');
+<<<<<<< HEAD
 var tel = require('./tel');
 var joy = require('./xbox');
+=======
+// var tel = require('./tel');  
+>>>>>>> 29c64eba4e4dd2442460c777fd041e067775941f
 // var needle = require('./compass');
 
 var point = [0, 0, 0, 0, 0];
