@@ -76,13 +76,11 @@ var processMessage = function(map, msg) {
                 if (data[1] == 1)
                   $("#updStatus").prop('disabled', false);
                 break;
-     break;
      case '~':  $('#k'+ data[1]).removeClass('btn-positive').addClass('btn-danger').html('Start');
                 if (data[1] == 1){
                   $("#updStatus").prop('disabled', true);
                   allowData = false;}
-                  break;
-     break;
+                break;
      case '?':  $('#k' + data[1]).removeClass('btn-positive').addClass('btn-negative').html('Execv Error'); break;
      case '!':  $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-positive').html('Stop'); break;
      case '^':  $('#k'+ data[1]).removeClass('btn-positive').addClass('btn-danger').html('Start'); break;
@@ -132,7 +130,8 @@ var simulate3D = function(msgProcess){
       anglex+=parseFloat(dat[1]);
       angley+=parseFloat(dat[2]);
       anglez+=parseFloat(dat[3]);
-//setInterval(function() {
+
+      //setInterval(function() {
       // if(anglex>1.57)
       // {
       // anglex=0;
