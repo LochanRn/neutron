@@ -20,7 +20,7 @@ var setupServer = function(map, port) {
         server.on('message', (msg, rinfo) => {
         $("#rover").html(`${rinfo.address}:${rinfo.port}`);
         processMessage(map, msg, rinfo);
-      ///  simulate3D(msg);
+        simulate3D(msg);
         $("#down").html(` ${msg.length}b`);
     });
 
@@ -96,7 +96,7 @@ var processMessage = function(map, msg) {
       var dat = data.split(",");
       // console.log(typeof(parseFloat(dat[1])));
       $('#heading').html(dat[1]);
-      needle.compass(dat[1]);
+      //needle.compass(dat[1]);
       if(dat[2]=='%')
       {
         $('[id^=send]').prop('disabled', false);
@@ -128,24 +128,13 @@ var processMessage = function(map, msg) {
 
 var simulate3D = function(msgProcess){
  var data = `${msgProcess}`;
- console.log(msgProcess);
     if(data[0]=='$')
     {
       dat = data.split(",");
       anglex+=parseFloat(dat[1]);
       angley+=parseFloat(dat[2]);
       anglez+=parseFloat(dat[3]);
-//setInterval(function() {
-      // if(anglex>1.57)
-      // {
-      // anglex=0;
-      // angley=0;
-      // anglez=0;
-      // }
 
-      // anglex+=0.01;
-      // angley+=0.01;
-      // anglez+=0.01;
       sim.callRenderer(anglex, angley, anglez);
     }
 }
