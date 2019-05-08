@@ -1,7 +1,10 @@
 var MapLayer = require('./map');
 var link = require('./communication');
 var control = require('./keyboard');
-// var joy = require('./gamepad');
+//var joy = require('./xbox');
+//var joy2= require('./xboxnew.js');
+//var h= require('./testt.js');
+var controlKJ = require('./controlkj');
 var point = [0, 0, 0, 0, 0];
 var fileName = ['Index', 'Micro', 'Spectro', 'ImageProcessing'];
 var count = 0;
@@ -17,9 +20,21 @@ control.initKeyboard();
 // setting up required listners
 setInterval(function () {
     var data = control.processKeys();
-    // var joyData = joy.processKeys();
-//    link.sendData("<" + data[0] + "," + data[1] + "," + joyData[0] + "," + joyData[1] + "," + data[2] + "," + data[3] + ">", 0);
     link.sendData("<"+data[1]+","+data[0]+","+data[2]+","+data[3] + ",>");
+
+  /* var data = control.processKeys();
+    var data2= joy2.processKeys();
+    console.log(data2);
+  */
+   var data = controlKJ.processKeys();
+   console.log(data);
+    /*
+      var joyData = joy.processKeys(); 
+      var sending = ("<"+data[0]+","+data[1]+","+ joyData[0] + "," + joyData[1]+","+data[2]+","+data[3] +">");
+      link.sendData("<"+data[0]+","+data[1]+","+ joyData[0] + "," + joyData[1]+","+data[2]+","+data[3] +">", 0);
+      //link.sendData("<"+data[0]+","+data[1]+"!"+joyData[0]+";"+joyData[1]);
+      console.log(sending);
+    */
 }, DATA_RATE);
 
 map.on('click', function (e) {
