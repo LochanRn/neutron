@@ -27,7 +27,11 @@ setInterval(function () {
     console.log(data2);
   */
    var data = controlKJ.processKeys();
+
    //console.log(data);
+
+   //console.log(data);
+
     /*
       var joyData = joy.processKeys(); 
       var sending = ("<"+data[0]+","+data[1]+","+ joyData[0] + "," + joyData[1]+","+data[2]+","+data[3] +">");
