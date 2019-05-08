@@ -143,7 +143,6 @@ var processMessage = function(map, msg) {
 
 var simulate3D = function(msgProcess){
  var data = `${msgProcess}`;
-
     if(data[0]=='#'&&allowData===true)
     {
       dat2 = data.split(",");
@@ -152,21 +151,10 @@ var simulate3D = function(msgProcess){
       anglex+=parseFloat(1.57*(dat2[1]-aglx)/10);
       angley+=parseFloat(1.57*(dat[1]-agly)/90);
       anglez-=parseFloat(1.57*(dat2[3]-aglz)/10);
-      console.log(angley);
+      //console.log(angley);
       aglx=dat2[1];
       agly=dat[1];
       aglz=dat2[3];
-
-    if(data[0]=='#')
-    {
-      dat = data.split(",");
-      anglex+=parseFloat(1.57*(dat[1]-aglx)/10);
-      angley+=parseFloat(1.57*(dat[2]-agly)/10);
-      anglez+=parseFloat(1.57*(dat[3]-aglz)/10);
-
-      aglx=dat[1];
-      agly=dat[2];
-      aglz=dat[3];
       sim.callRenderer(anglex, angley, anglez);
     }
 }
