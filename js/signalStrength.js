@@ -1,7 +1,7 @@
 'use strict'
 var update = require('./bar');
 const Telnet = require('telnet-client');
-// var cont = 0
+ var cont = 0
 async function run() {
   let connection = new Telnet()
 
@@ -23,17 +23,19 @@ async function run() {
   while (1) {
     // setTimeout(function(){
     let res = await connection.exec('iwconfig')
-    var result = (res.substr(482, 41)) //479 45 493 2
-    var signal = parseInt(res.substr(496, 3))
-  //console.log("counter="+cont)
-  //   if (cont >= 20 || cont == 0) {
-  //     update.updatestrength(100 - sig)
-  //     console.log("-----------------------------")
-  //     cont = 1;
-  //   }
-  //   cont++;
+    var result = res.substr(482, 41)//479 45 493 2
+    var n = str.lastIndexOf("strength = ");
+    n=n+11
+    var signal = parseInt(result.substr(n, 3))
+    console.log("counter="+cont)
+    if (cont >= 20 || cont == 0) {
+      update.updatestrength(100 - signal)
+      console.log("-----------------------------")
+      cont = 1;
+    }
+    cont++;
   //   console.log(result);
-    setTimeout(update.updatestrength(100-signal),5);
+    //setTimeout(update.updatestrength(100-signal),5);
   }
 }
 run();
