@@ -6,7 +6,7 @@ async function run() {
   let connection = new Telnet()
 
   let params = {
-    host: '192.168.1.20',
+    host: '192.168.1.22',
     port: 23,
     loginPrompt: 'M2 login: ',
     passwordPrompt: 'Password: ',
