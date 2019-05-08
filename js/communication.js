@@ -1,17 +1,20 @@
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
+const server2 = dgram.createSocket('udp4');
 var sim = require('./3dsimulator');
 //var needle = require('./compass');
 
+var dat2=[];
 var dat=[];
 var anglex=0, angley=0, anglez=0;
+var aglx=0, agly=0, aglz=0;
 var host = '127.0.0.1';
 var port = 3301;
 var portMaster = 3300;
 var allowData = false;
 var oldPoint = 0;
 
-var setupServer = function(map, port) {
+var setupServer = function(map, port, port2) {
     server.on('error', (err) => {
         console.error(`server error:\n${err.stack}`);
         server.close();
@@ -20,7 +23,6 @@ var setupServer = function(map, port) {
         server.on('message', (msg, rinfo) => {
         $("#rover").html(`${rinfo.address}:${rinfo.port}`);
         processMessage(map, msg, rinfo);
-        simulate3D(msg);
         $("#down").html(` ${msg.length}b`);
     });
 
@@ -30,6 +32,21 @@ var setupServer = function(map, port) {
     });
     server.bind(port);
 
+    server2.on('error', (err) => {
+        console.error(`server error:\n${err.stack}`);
+        server2.close();
+    });
+
+        server2.on('message', (msg2, rinfo) => {
+        simulate3D(msg2);
+    });
+
+    server2.on('listening', () => {
+        const address2 = server2.address();
+        //$("#station").html(`${address.address}:${address.port}`);
+    });
+    
+    server2.bind(port2);
     // required listners
     $('#updStatus').click(function() {
         host = $("#processip").val().split(":")[0];
@@ -76,14 +93,12 @@ var processMessage = function(map, msg) {
                 if (data[1] == 1)
                   $("#updStatus").prop('disabled', false);
                 break;
-     break;
      case '~':  $('#k'+ data[1]).removeClass('btn-positive').addClass('btn-danger').html('Start');
                 if (data[1] == 1){
                   $('#updStatus').removeClass('btn-positive').addClass('btn-warning').html('Start');
                   $("#updStatus").prop('disabled', true);
                   allowData = false;}
-                  break;
-     break;
+                break;
      case '?':  $('#k' + data[1]).removeClass('btn-positive').addClass('btn-negative').html('Execv Error'); break;
      case '!':  $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-positive').html('Stop'); 
                 $("#updStatus").prop('disabled', false);
@@ -93,7 +108,7 @@ var processMessage = function(map, msg) {
      default: break;
   }
     if(data[0]=='$'){
-      var dat = data.split(",");
+      dat = data.split(",");
       // console.log(typeof(parseFloat(dat[1])));
       $('#heading').html(dat[1]);
       //needle.compass(dat[1]);
@@ -128,13 +143,18 @@ var processMessage = function(map, msg) {
 
 var simulate3D = function(msgProcess){
  var data = `${msgProcess}`;
-    if(data[0]=='$')
+    if(data[0]=='#'&&allowData===true)
     {
-      dat = data.split(",");
-      anglex+=parseFloat(dat[1]);
-      angley+=parseFloat(dat[2]);
-      anglez+=parseFloat(dat[3]);
+      dat2 = data.split(",");
+      //
 
+      anglex+=parseFloat(1.57*(dat2[1]-aglx)/10);
+      angley+=parseFloat(1.57*(dat[1]-agly)/90);
+      anglez-=parseFloat(1.57*(dat2[3]-aglz)/10);
+      console.log(angley);
+      aglx=dat2[1];
+      agly=dat[1];
+      aglz=dat2[3];
       sim.callRenderer(anglex, angley, anglez);
     }
 }
