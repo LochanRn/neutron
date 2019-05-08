@@ -21,7 +21,7 @@ if(!counter){
 
 
 //creates geometry and material for cube and passes them as parameters
-geometry = new THREE.BoxGeometry(900, 200, 800, 0, 0, 0);
+geometry = new THREE.BoxGeometry(900, 200, 800, 10, 10, 10);
 material = new THREE.MeshBasicMaterial({color: 0x000000, wireframe:true });
 cube     = new THREE.Mesh(geometry, material);
 

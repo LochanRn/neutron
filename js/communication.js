@@ -5,6 +5,7 @@ var sim = require('./3dsimulator');
 
 var dat=[];
 var anglex=0, angley=0, anglez=0;
+var aglx=0, agly=0, aglz=0;
 var host = '127.0.0.1';
 var port = 3301;
 var portMaster = 3300;
@@ -126,12 +127,16 @@ var processMessage = function(map, msg) {
 
 var simulate3D = function(msgProcess){
  var data = `${msgProcess}`;
-    if(data[0]=='$')
+    if(data[0]=='#')
     {
       dat = data.split(",");
-      anglex+=parseFloat(dat[1]);
-      angley+=parseFloat(dat[2]);
-      anglez+=parseFloat(dat[3]);
+      anglex+=parseFloat(1.57*(dat[1]-aglx)/10);
+      angley+=parseFloat(1.57*(dat[2]-agly)/10);
+      anglez+=parseFloat(1.57*(dat[3]-aglz)/10);
+
+      aglx=dat[1];
+      agly=dat[2];
+      aglz=dat[3];
       sim.callRenderer(anglex, angley, anglez);
     }
 }
