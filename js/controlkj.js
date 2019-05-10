@@ -4,18 +4,17 @@ var b ,flag2= 0;
 var but = ['a', 'b', 'x', 'y', 'lb', 'rb', 'lt', 'rt', 'back', 'start', 'lsb', 'rsb', 'up', 'down', 'left', 'right', 'xbox'];
 var con = ["control", "z", "/", "ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp", "Shift", "c", "x", "r", "o", "i", "l", "k", "j"]
 
-var keyMap = {
-    "1": false, "2": false, "3": false, "4": false, "6": false, "8": false,
-    "e": false, "q": false, "a": false, "s": false, "d": false, "w": false,
-    "control": false, "z": false, "/": false, "ArrowRight": false, "ArrowLeft": false, "ArrowDown": false, "ArrowUp": false, "Shift": false,
-    "c": false, "x": false, "r": false, "o": false, "i": false, "l": false, "k": false, "j": false
-};
-var keyMap2 = {
-    "1": false, "2": false, "3": false, "4": false, "6": false, "8": false,
-    "e": false, "q": false, "a": false, "s": false, "d": false, "w": false,
-    "control": false, "z": false, "/": false, "ArrowRight": false, "ArrowLeft": false, "ArrowDown": false, "ArrowUp": false, "Shift": false,
-    "c": false, "x": false, "r": false, "o": false, "i": false, "l": false, "k": false, "j": false
-};
+var keyMap = { "1":false, "2":false, "3":false, "4":false, "6":false, "8":false ,
+               " ":false,"e":false, "q":false, "a":false, "s":false, "d":false, "w":false ,
+               "Control":false,"z":false, "/":false, "ArrowRight":false, "ArrowLeft":false , "ArrowDown":false , "ArrowUp":false , "Shift":false,
+               "c":false,"x":false,"r":false, "o":false, "i":false, "l":false, "k":false, "j":false
+            };
+
+var keyMap2 = { "1":false, "2":false, "3":false, "4":false, "6":false, "8":false ,
+            " ":false,"e":false, "q":false, "a":false, "s":false, "d":false, "w":false ,
+            "Control":false,"z":false, "/":false, "ArrowRight":false, "ArrowLeft":false , "ArrowDown":false , "ArrowUp":false , "Shift":false,
+            "c":false,"x":false,"r":false, "o":false, "i":false, "l":false, "k":false, "j":false
+         };
 
 
 var initKeyboard = function () {
@@ -64,7 +63,6 @@ var processKeys = function ()
 {
     var outputk="";
     var outputj="";
-    //var output ="0000000000000000000000000000";
     var output="";
     Object.keys(keyMap).forEach(function (key) {
         outputk += (keyMap[key] ? "1" : "0");
@@ -99,7 +97,7 @@ var processKeys = function ()
               channel2=0;
           }
      }
-    for(var i=0;i<28;i++)
+    for(var i=0;i<29;i++)
     output+=(parseInt(outputj[i])||parseInt(outputk[i])).toString();
     /*
     console.log("["+outputk+"]");
@@ -109,11 +107,12 @@ var processKeys = function ()
     console.log("("+output+")");
     */
   
-    var camera = parseInt(output.substring(0, 6), 2);
-    var drive = parseInt(output.substring(6, 12), 2);
-    var arm = parseInt(output.substring(12, 20), 2);
-    var ypr = parseInt(output.substring(20, 28), 2);
-    return [camera, drive, arm, ypr,channel1,channel2];
+
+   var camera = parseInt(output.substring(0, 6), 2);
+   var drive = parseInt(output.substring(6, 13), 2);
+   var arm = parseInt(output.substring(13, 21), 2);
+   var ypr = parseInt(output.substring(21, 29), 2);
+    return [camera, drive,channel1,channel2, arm, ypr];
 }  
 module.exports.initKeyboard = initKeyboard;
 module.exports.processKeys = processKeys;
