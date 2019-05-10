@@ -45,7 +45,6 @@ var setupServer = function(map, port, port2) {
         const address2 = server2.address();
         //$("#station").html(`${address.address}:${address.port}`);
     });
-
     server2.bind(port2);
     // required listners
     $('#updStatus').click(function() {
@@ -151,7 +150,7 @@ var simulate3D = function(msgProcess){
       anglex+=parseFloat(1.57*(dat2[1]-aglx)/10);
       angley+=parseFloat(1.57*(dat[1]-agly)/90);
       anglez-=parseFloat(1.57*(dat2[3]-aglz)/10);
-      console.log(angley);
+      //console.log(angley);
       aglx=dat2[1];
       agly=dat[1];
       aglz=dat2[3];

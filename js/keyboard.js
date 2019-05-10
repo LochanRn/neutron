@@ -21,7 +21,6 @@ var processKeys = function() {
     Object.keys(keyMap).forEach(function(key) {
         output += (keyMap[key] ? "1" : "0");
     });
-  //  console.log(output);
 
     var camera = parseInt(output.substring(0, 6), 2);
     var drive = parseInt(output.substring(6, 13), 2);
