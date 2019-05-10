@@ -19,14 +19,11 @@ control.initKeyboard();
 
 // setting up required listners
 setInterval(function () {
-   /* var data = control.processKeys();
-    var data2= joy2.processKeys();
-    console.log(data2);
-*/
  var data = control.processKeys();
  console.log(data);
-
-    /*
+ link.sendData("<"+data[0]+","+data[1]+","+ data[2] + "," + data[3]+","+data[4]+","+data[5] +">", 0);
+ 
+ /*
    var joyData = joy.processKeys(); 
   var sending = ("<"+data[0]+","+data[1]+","+ joyData[0] + "," + joyData[1]+","+data[2]+","+data[3] +">");
     link.sendData("<"+data[0]+","+data[1]+","+ joyData[0] + "," + joyData[1]+","+data[2]+","+data[3] +">", 0);

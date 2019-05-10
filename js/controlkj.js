@@ -1,18 +1,22 @@
 console.log("im IN");
 var a, flag = 0;
 var b ,flag2= 0;
-var but = ['a', 'b', 'x', 'y', 'lb', 'rb', 'lt', 'rt', 'back', 'start', 'lsb', 'rsb', 'up', 'down', 'left', 'right', 'xbox'];
+var butarm = ['a', 'b', 'x', 'y', 'lb', 'rb', 'lt', 'rt', 'back', 'start', 'lsb', 'rsb', 'up', 'down', 'left', 'right', 'xbox'];
 var con = ["control", "z", "/", "ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp", "Shift", "c", "x", "r", "o", "i", "l", "k", "j"]
 
+var butdrive = ['a', 'b', 'x', 'y', 'lb', 'rb', 'lt', 'rt', 'back', 'start', 'lsb', 'rsb', 'up', 'down', 'left', 'right', 'xbox'];
+var condrive = ['1-', '2-', '3-', '4-', '6-',  '8-'];
+
 var keyMap = {
-    "1": false, "2": false, "3": false, "4": false, "6": false, "8": false,
-    "e": false, "q": false, "a": false, "s": false, "d": false, "w": false,
+    "1": false, "2": false, "3": false, "6": false, "4": false, "8": false,
+    "u":false, " ":false,"e": false, "q": false, "a": false, "s": false, "d": false, "w": false,
     "control": false, "z": false, "/": false, "ArrowRight": false, "ArrowLeft": false, "ArrowDown": false, "ArrowUp": false, "Shift": false,
     "c": false, "x": false, "r": false, "o": false, "i": false, "l": false, "k": false, "j": false
 };
+
 var keyMap2 = {
-    "1": false, "2": false, "3": false, "4": false, "6": false, "8": false,
-    "e": false, "q": false, "a": false, "s": false, "d": false, "w": false,
+    "6-": false, "1-": false, "8-": false, "3-": false, "2-": false, "4-": false,
+    "u":false, " ":false,"e": false, "q": false, "a": false, "s": false, "d": false, "w": false,
     "control": false, "z": false, "/": false, "ArrowRight": false, "ArrowLeft": false, "ArrowDown": false, "ArrowUp": false, "Shift": false,
     "c": false, "x": false, "r": false, "o": false, "i": false, "l": false, "k": false, "j": false
 };
@@ -67,53 +71,64 @@ var processKeys = function ()
     //var output ="0000000000000000000000000000";
     var output="";
     Object.keys(keyMap).forEach(function (key) {
-        outputk += (keyMap[key] ? "1" : "0");
+    outputk += (keyMap[key] ? "1" : "0");
     }); 
-     
-    if(flag==1)
+    if(flag==1 || flag2==1)
     {
+     if(flag==1)
+     {
         var gp = navigator.getGamepads()[a];
         if(gp!=null)
         for(var i=0;i<17;i++)
-            changekeyMap(con[i],gp.buttons[i].value);
-        Object.keys(keyMap2).forEach(function (key) {
-                outputj += (keyMap2[key] ? "1" : "0");
-            });    
-     }
-     else 
-     {outputj="0000000000000000000000000000";
-     }
-     var channel1=0;
-     var channel2=0;
-     if(flag2==1)
-     {
+          changekeyMap(con[i],gp.buttons[i].value);
+          Object.keys(keyMap2).forEach(function (key) {
+          outputj += (keyMap2[key] ? "1" : "0");
+         });    
+      }
+      var channel1=0;
+      var channel2=0;
+      if(flag2==1)
+      {
          var gpd = navigator.getGamepads()[b];
          if(gpd!=null)
           {
-              channel1=parseInt(gpd.axes[0]*100);
-              channel2=parseInt(gpd.axes[1]*100);
+             channel1=parseInt(gpd.axes[0]*100);
+             channel2=parseInt(gpd.axes[1]*100);
+             for(var i=0;i<7;i++)
+             changekeyMap(condrive[i],gpd.buttons[i].value);
+             Object.keys(keyMap2).forEach(function (key) {
+             outputj += (keyMap2[key] ? "1" : "0");
+            });
           }
-          else 
-          {
-              channel1=0;
-              channel2=0;
-          }
+      }
      }
-    for(var i=0;i<28;i++)
+     else 
+     {
+      channel1=0;
+      channel2=0;
+      outputj="000000000000000000000000000000";
+               
+     }
+
+    for(var i=0;i<29;i++)
     output+=(parseInt(outputj[i])||parseInt(outputk[i])).toString();
     /*
     console.log("["+outputk+"]");
     console.log('\n');
     console.log("{"+outputj+"}"); 
+    
     console.log('\n');
-    console.log("("+output+")");
-    */
-  
+    
+console.log("("+output+")");
+*/    
+    
     var camera = parseInt(output.substring(0, 6), 2);
-    var drive = parseInt(output.substring(6, 12), 2);
-    var arm = parseInt(output.substring(12, 20), 2);
-    var ypr = parseInt(output.substring(20, 28), 2);
-    return [camera, drive, arm, ypr,channel1,channel2];
+    var drive = parseInt(output.substring(6, 14), 2);
+    var arm = parseInt(output.substring(14, 22), 2);
+    var ypr = parseInt(output.substring(22, 30), 2);
+
+    return [camera, drive,channel1,channel2, arm, ypr];
 }  
+
 module.exports.initKeyboard = initKeyboard;
 module.exports.processKeys = processKeys;

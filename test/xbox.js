@@ -2,6 +2,7 @@ var gamepad = require("gamepad");
 gamepad.init()
 
 for (var i = 0, l = gamepad.numDevices(); i < l; i++) {
+  
   gamepad.deviceAtIndex();
 }
 
