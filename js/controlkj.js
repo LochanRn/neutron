@@ -21,7 +21,6 @@ var keyMap2 = {
     "c": false, "x": false, "r": false, "o": false, "i": false, "l": false, "k": false, "j": false
 };
 
-
 var initKeyboard = function () {
     $('body').keydown(function (event) {
         // console.log(event.key);
@@ -68,7 +67,6 @@ var processKeys = function ()
 {
     var outputk="";
     var outputj="";
-    //var output ="0000000000000000000000000000";
     var output="";
     Object.keys(keyMap).forEach(function (key) {
     outputk += (keyMap[key] ? "1" : "0");
