@@ -45,7 +45,6 @@ var setupServer = function(map, port, port2) {
         const address2 = server2.address();
         //$("#station").html(`${address.address}:${address.port}`);
     });
-    
     server2.bind(port2);
     // required listners
     $('#updStatus').click(function() {
@@ -100,7 +99,7 @@ var processMessage = function(map, msg) {
                   allowData = false;}
                 break;
      case '?':  $('#k' + data[1]).removeClass('btn-positive').addClass('btn-negative').html('Execv Error'); break;
-     case '!':  $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-positive').html('Stop'); 
+     case '!':  $('#k'+ data[1]).removeClass('btn-danger').addClass('btn-positive').html('Stop');
                 $("#updStatus").prop('disabled', false);
                 break;
      case '^':  $('#k'+ data[1]).removeClass('btn-positive').addClass('btn-danger').html('Start'); break;

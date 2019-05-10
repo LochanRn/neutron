@@ -1,10 +1,8 @@
 var MapLayer = require('./map');
 var link = require('./communication');
-var control = require('./keyboard');
-//var joy = require('./xbox');
-//var joy2= require('./xboxnew.js');
+//var control = require('./keyboard');
 //var h= require('./testt.js');
-var controlKJ = require('./controlkj');
+ var controlKJ = require('./controlkj');
 var point = [0, 0, 0, 0, 0];
 var fileName = ['Index', 'Micro', 'Spectro', 'ImageProcessing'];
 var count = 0;
@@ -15,26 +13,19 @@ var ploticon = MapLayer.getIcons("../images/Black_dot.png");
 // var testicon = MapLayer.getIcons("../images/pointer_marker.png",[35,35]);
 
 link.setupServer(map, 23907, 23911); // Groud Station server listning on 23907 never change!!!!
-control.initKeyboard();
+controlKJ.initKeyboard();
 
 // setting up required listners
 setInterval(function () {
-    var data = control.processKeys();
-    link.sendData("<"+data[1]+","+data[0]+","+data[2]+","+data[3] + ",>");
 
-  /* var data = control.processKeys();
-    var data2= joy2.processKeys();
-    console.log(data2);
-  */
-   var data = controlKJ.processKeys();
-   //console.log(data);
-    /*
-      var joyData = joy.processKeys(); 
-      var sending = ("<"+data[0]+","+data[1]+","+ joyData[0] + "," + joyData[1]+","+data[2]+","+data[3] +">");
-      link.sendData("<"+data[0]+","+data[1]+","+ joyData[0] + "," + joyData[1]+","+data[2]+","+data[3] +">", 0);
-      //link.sendData("<"+data[0]+","+data[1]+"!"+joyData[0]+";"+joyData[1]);
-      console.log(sending);
-    */
+//    var data = control.processKeys();
+//    link.sendData("<"+data[1]+","+data[0]+","+data[2]+","+data[3] + ",>");
+
+var data = controlKJ.processKeys();
+link.sendData("<"+data[0]+","+data[1]+","+ data[2] + "," + data[3]+","+data[4]+","+data[5] +">", 0);
+     
+//  console.log(data);
+    
 }, DATA_RATE);
 
 map.on('click', function (e) {
