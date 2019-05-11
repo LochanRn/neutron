@@ -98,60 +98,14 @@ var processKeys = function () {
 
   }
 
-<<<<<<< Updated upstream
   for (var i = 0; i < 29; i++)
     output += (parseInt(outputj[i]) || parseInt(outputk[i])).toString();
   /*
-=======
-var processKeys = function () 
-{
-    var outputk="";
-    var outputj="";
-    //var output ="0000000000000000000000000000";
-    var output="";
-    Object.keys(keyMap).forEach(function (key) {
-        outputk += (keyMap[key] ? "1" : "0");
-    }); 
-     
-    if(flag==1)
-    {
-        var gp = navigator.getGamepads()[a];
-        if(gp!=null)
-        for(var i=0;i<17;i++)
-            changekeyMap(con[i],gp.buttons[i].value);
-        Object.keys(keyMap2).forEach(function (key) {
-                outputj += (keyMap2[key] ? "1" : "0");
-            });    
-     }
-     else 
-     {outputj="00000000000000000000000000000";
-     }
-     var channel1=0;
-     var channel2=0;
-     if(flag2==1)
-     {
-         var gpd = navigator.getGamepads()[b];
-         if(gpd!=null)
-          {
-              channel1=parseInt(gpd.axes[0]*100);
-              channel2=parseInt(gpd.axes[1]*100);
-          }
-          else 
-          {
-              channel1=0;
-              channel2=0;
-          }
-     }
-    for(var i=0;i<29;i++)
-    output+=(parseInt(outputj[i])||parseInt(outputk[i])).toString();
-    /*
->>>>>>> Stashed changes
     console.log("["+outputk+"]");
     console.log('\n');
     console.log("{"+outputj+"}"); 
     
     console.log('\n');
-<<<<<<< Updated upstream
     
 console.log("("+output+")");
 */
@@ -164,18 +118,5 @@ console.log("("+output+")");
   return [camera, drive, channel1, channel2, arm, ypr];
 }
 
-=======
-    console.log("("+output+")");
-    */
-  
-    var camera = parseInt(output.substring(0, 6), 2);
-    var drive = parseInt(output.substring(6, 13), 2);
-    var arm = parseInt(output.substring(13, 21), 2);
-    var ypr = parseInt(output.substring(21, 29), 2);
-
-    return [camera, drive,channel1,channel2, arm, ypr];
-}  
-
->>>>>>> Stashed changes
 module.exports.initKeyboard = initKeyboard;
 module.exports.processKeys = processKeys;
