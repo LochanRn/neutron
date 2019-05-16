@@ -25,7 +25,11 @@ setInterval(function () {
 var data = controlKJ.processKeys();
 link.sendData("<"+data[0]+","+data[1]+","+ data[2] + "," + data[3]+","+data[4]+","+data[5] +">", 0);
      
+<<<<<<< Updated upstream
   console.log(data);
+=======
+ console.log(data);
+>>>>>>> Stashed changes
     
 }, DATA_RATE);
 
