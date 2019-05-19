@@ -161,7 +161,7 @@ var simulate3D = function (msgProcess) {
     aglz = dat2[3];
     sim.callRenderer(anglex, angley, anglez);
   }
-
+}
 
 module.exports.setupServer = setupServer;
 module.exports.sendData = sendData;
