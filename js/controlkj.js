@@ -34,16 +34,19 @@ var initKeyboard = function () {
 
 addEventListener("gamepadconnected", function (e) {
 
-  console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-    e.gamepad.index, e.gamepad.id,
-    e.gamepad.buttons.length, e.gamepad.axes.length);
-  if (flag == 0) {
-    a = e.gamepad.index;
-    flag = 1;
-  } else {
-    b = e.gamepad.index;
-    flag2 = 1;
-    // console.log("Second  GAMEPAD :" + b);
+  // console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+  //   e.gamepad.index, e.gamepad.id,
+  //   e.gamepad.buttons.length, e.gamepad.axes.length);
+  console.log(e.gamepad.id);
+  if(e.gamepad.id.includes("STANDARD GAMEPAD")){
+    if (flag == 0) {
+      a = e.gamepad.index;
+      flag = 1;
+    } else {
+      b = e.gamepad.index;
+      flag2 = 1;
+      // console.log("Second  GAMEPAD :" + b);
+    }
   }
 });
 /*
@@ -71,7 +74,7 @@ var processKeys = function () {
     if (flag == 1) {
       var gp = navigator.getGamepads()[a];
       if (gp != null)
-        for (var i = 0; i < 17; i++)
+        for (var i = 0; i < 16; i++)
           changekeyMap(con[i], gp.buttons[i].value);
       Object.keys(joyMap).forEach(function (key) {
         outputj += (joyMap[key] ? "1" : "0");
