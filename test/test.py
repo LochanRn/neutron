@@ -5,7 +5,7 @@ import time
 # port=3301
 #ADDRESS= '192.168.43.36'    
 
-port=23907
+port=23911
 # ADDRESS='192.168.1.19'          
 ADDRESS='127.0.0.1'          
 s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)

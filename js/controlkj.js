@@ -2,7 +2,7 @@ var a, flag = 0;
 var b, flag2 = 0;
 
 var butarm = ['a', 'b', 'x', 'y', 'lb', 'rb', 'lt', 'rt', 'back', 'start', 'lsb', 'rsb', 'up', 'down', 'left', 'right', 'xbox'];
-var con = ["control", "z", "/", "ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp", "Shift", "c", "x", "r", "o", "i", "l", "k", "j"];
+var con = ["Control", "z", "/", "ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp", "Shift", "c", "x", "r", "o", "i", "l", "k", "j"];
 
 var butdrive = ['a', 'b', 'x', 'y', 'lb', 'rb', 'lt', 'rt', 'back', 'start', 'lsb', 'rsb', 'up', 'down', 'left', 'right', 'xbox'];
 var condrive = ['1-', '2-', '3-', '4-', '6-',  '8-'];
@@ -10,15 +10,15 @@ var condrive = ['1-', '2-', '3-', '4-', '6-',  '8-'];
 var keyMap = {
     "1": false, "2": false, "3": false, "6": false, "4": false, "8": false,
     "u":false, " ":false,"e": false, "q": false, "a": false, "s": false, "d": false, "w": false,
-    "control": false, "z": false, "/": false, "ArrowRight": false, "ArrowLeft": false, "ArrowDown": false, "ArrowUp": false, "Shift": false,
+    "Control": false, "z": false, "/": false, "ArrowRight": false, "ArrowLeft": false, "ArrowDown": false, "ArrowUp": false, "Shift": false,
     "c": false, "x": false, "r": false, "o": false, "i": false, "l": false, "k": false, "j": false
 };
 
 var joyMap = {
     "6-": false, "1-": false, "8-": false, "3-": false, "2-": false, "4-": false,
     "u":false, " ":false,"e": false, "q": false, "a": false, "s": false, "d": false, "w": false,
-    "control": false, "z": false, "/": false, "ArrowRight": false, "ArrowLeft": false, "ArrowDown": false, "ArrowUp": false, "Shift": false,
-    "c": false, "x": false, "r": false, "o": false, "i": false, "l": false, "k": false, "j": false
+    "/": false, "Shift": false, "ArrowUp": false, "j": false, "k": false, "l": false, "i": false, "x": false,
+    "r": false, "o": false, "c": false, "ArrowDown": false, "ArrowLeft": false, "Control": false, "z": false, "ArrowRight": false
 };
 
 var initKeyboard = function () {
@@ -98,7 +98,7 @@ var processKeys = function () {
 
   }
 
-  for (var i = 0; i < 29; i++)
+  for (var i = 0; i < 30 ; i++)
     output += (parseInt(outputj[i]) || parseInt(outputk[i])).toString();
   /*
     console.log("["+outputk+"]");
