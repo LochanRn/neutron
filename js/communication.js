@@ -29,8 +29,14 @@ var setupServer = function (map, port, portIMU) {
   server.on('listening', () => {
     const address = server.address();
     $("#station").html(`${address.address}:${address.port}`);
+    // simulate3D();
   });
   server.bind(port);
+  
+  // IMUdata.on('listening', () => {
+  //   const address = IMUdata.address();
+  //   console.log(address);
+  // });
 
   IMUdata.on('error', (err) => {
     console.error(`server error:\n${err.stack}`);
@@ -150,15 +156,17 @@ var simulate3D = function (msgProcess) {
   var data = `${msgProcess}`;
   if (data[0] == '#' && allowData === true) {
     dat2 = data.split(",");
-    //
-
-    anglex += parseFloat(1.57 * (dat2[1] - aglx) / 10);
-    angley += parseFloat(1.57 * (dat[1] - agly) / 90);
-    anglez -= parseFloat(1.57 * (dat2[3] - aglz) / 10);
+    //anglex += parseFloat(1.57 * (dat2[1] - aglx) / 10);
+    //angley += parseFloat(1.57 * (dat[1] - agly) / 90);
+    //anglez -= parseFloat(1.57 * (dat2[3] - aglz) / 10);
     //console.log(angley);
-    aglx = dat2[1];
-    agly = dat[1];
-    aglz = dat2[3];
+    anglex+= parseFloat(dat2[1]);
+    angley+= parseFloat(dat2[2]);
+    anglez+= parseFloat(dat2[3]);
+    //aglx = dat2[1];
+    //agly = dat[1];
+    //aglz = dat2[3];
+
     sim.callRenderer(anglex, angley, anglez);
   }
 }
