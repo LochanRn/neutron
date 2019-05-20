@@ -18,5 +18,6 @@
   },
   "dependencies": {
     "electron-nunjucks": "^1.0.3",
+    "telnet-client": "^1.0.0"
   }
 }
