@@ -5,7 +5,7 @@ var butarm = ['a', 'b', 'x', 'y', 'lb', 'rb', 'lt', 'rt', 'back', 'start', 'lsb'
 var con = ["Control", "z", "/", "ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp", "Shift", "c", "x", "r", "o", "i", "l", "k", "j"];
 
 var butdrive = ['a', 'b', 'x', 'y', 'lb', 'rb', 'lt', 'rt', 'back', 'start', 'lsb', 'rsb', 'up', 'down', 'left', 'right', 'xbox'];
-var condrive = ['1-', '2-', '3-', '4-', '6-',  '8-'];
+var condrive = ['1-', '2-', '3-', '4-', '6-',  '8-','d','a'];
 
 var keyMap = {
     "1": false, "2": false, "3": false, "6": false, "4": false, "8": false,
@@ -87,7 +87,7 @@ var processKeys = function () {
       if (gpd != null) {
         channel1 = parseInt(gpd.axes[0] * 100);
         channel2 = parseInt(gpd.axes[1] * 100);
-        for (var i = 0; i < 7; i++)
+        for (var i = 0; i < 8; i++)
           changekeyMap(condrive[i], gpd.buttons[i].value);
         Object.keys(joyMap).forEach(function (key) {
           outputj += (joyMap[key] ? "1" : "0");

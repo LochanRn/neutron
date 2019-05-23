@@ -4,8 +4,9 @@ const IMUdata = dgram.createSocket('udp4');
 var sim = require('./3dsimulator');
 //var needle = require('./compass');
 
-var dat2=[];
+var dat2=[0, 0, 0];
 var dat=[];
+var x=0, y=0, z=0;
 var anglex=0, angley=0, anglez=0;
 var aglx=0, agly=0, aglz=0;
 var host = '127.0.0.1';
@@ -29,14 +30,8 @@ var setupServer = function (map, port, portIMU) {
   server.on('listening', () => {
     const address = server.address();
     $("#station").html(`${address.address}:${address.port}`);
-    // simulate3D();
   });
   server.bind(port);
-  
-  // IMUdata.on('listening', () => {
-  //   const address = IMUdata.address();
-  //   console.log(address);
-  // });
 
   IMUdata.on('error', (err) => {
     console.error(`server error:\n${err.stack}`);
@@ -44,7 +39,11 @@ var setupServer = function (map, port, portIMU) {
   });
 
   IMUdata.on('message', (msg) => {
-    simulate3D(msg);
+    var data = `${msg}`;
+    if (data[0] == '#' && allowData === true) {
+    dat2 = data.split(",");
+    }
+    
   });
 
   IMUdata.bind(portIMU);
@@ -123,14 +122,15 @@ var processMessage = function (map, msg) {
     dat = data.split(",");
     // console.log(typeof(parseFloat(dat[1])));
     $('#heading').html(dat[1]);
+    simulate3D(dat2[1], dat[1], dat2[2]);
     //needle.compass(dat[1]);
     if (dat[2] == '%') {
-      $('[id^=send]').prop('disabled', false);//
+      $('[id^=send]').prop('disabled', false);
       $('#autoStatus').removeClass('red').removeClass('green').addClass('yellow');
     }
     // console.log((dat[2]));
     else if (dat[2].indexOf("destination:") !== -1) {
-      $('#infoInfo').html(dat[2]);
+      $('#info').html(dat[2]);
       if (dat[3] == "~") {
         $('#send').prop('disabled', false);
         $('#autoStatus').removeClass('red').removeClass('green').addClass('yellow');
@@ -152,23 +152,23 @@ var processMessage = function (map, msg) {
   }
 }
 
-var simulate3D = function (msgProcess) {
-  var data = `${msgProcess}`;
-  if (data[0] == '#' && allowData === true) {
-    dat2 = data.split(",");
-    //anglex += parseFloat(1.57 * (dat2[1] - aglx) / 10);
-    //angley += parseFloat(1.57 * (dat[1] - agly) / 90);
-    //anglez -= parseFloat(1.57 * (dat2[3] - aglz) / 10);
+var simulate3D = function (x, y, z) {
+     
+    anglex += parseFloat(1.57 * (x - aglx) / 10);
+    angley -= parseFloat(1.57 * (y - agly) / 90);
+    anglez -= parseFloat(1.57 * (z - aglz) / 10);
+     //console.log(dat2[1]);
+     //console.log("    ");
+     //console.log(dat2[3]);
+    //anglex += 0.01;
+    //angley += 0.01;
+    //anglez += 0.01;
     //console.log(angley);
-    anglex+= parseFloat(dat2[1]);
-    angley+= parseFloat(dat2[2]);
-    anglez+= parseFloat(dat2[3]);
-    //aglx = dat2[1];
-    //agly = dat[1];
-    //aglz = dat2[3];
-
+     aglx = x;
+     agly = y;
+     aglz = z;
     sim.callRenderer(anglex, angley, anglez);
-  }
+  //}
 }
 
 module.exports.setupServer = setupServer;
