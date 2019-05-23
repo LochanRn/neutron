@@ -18,11 +18,15 @@ controlKJ.initKeyboard();
 // setting up required listners
 setInterval(function () {
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
 //    var data = control.processKeys();
 //    link.sendData("<"+data[1]+","+data[0]+","+data[2]+","+data[3] + ",>");
 
 var data = controlKJ.processKeys();
+<<<<<<< Updated upstream
 link.sendData("<"+data[0]+","+data[1]+","+ data[2] + "," + data[3]+","+data[4]+","+data[5] +">", 0);
      
 //  console.log(data);
@@ -32,6 +36,13 @@ link.sendData("<"+data[0]+","+data[1]+","+ data[2] + "," + data[3]+","+data[4]+"
     link.sendData("<"+data[0]+","+data[1]+","+ data[2] + "," + data[3]+","+data[4]+","+data[5] +">", 0);     
     //  console.log(data);    
 >>>>>>> 61abf72117fee00c730fbbd3f1d27f1602a80586
+=======
+//console.log(data);
+link.sendData("<"+data[0]+","+data[1]+","+ data[2] + "," + data[3]+","+data[4]+","+data[5] +">", 0);
+     
+console.log(data);
+    
+>>>>>>> Stashed changes
 }, DATA_RATE);
 
 map.on('click', function (e) {

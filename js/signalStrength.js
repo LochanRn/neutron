@@ -6,7 +6,7 @@ async function run() {
   let connection = new Telnet()
 
   let params = {
-    host: '192.168.1.21',
+    host: '192.168.1.22',
     port: 23,
     loginPrompt: 'M2 login: ',
     passwordPrompt: 'Password: ',
@@ -23,19 +23,19 @@ async function run() {
   while (1) {
     // setTimeout(function(){
     let res = await connection.exec('iwconfig')
-    var result = res.substr(503, 2)//479 45 493 2  482 41 
-    var n = result.lastIndexOf("strength = ");
+    var result = res.substr(482, 41)//479 45 493 2
+    var n = str.lastIndexOf("strength = ");
     n=n+11
     var signal = parseInt(result.substr(n, 3))
-    // console.log(result);
-    // if (cont >= 20 || cont == 0) {
-    //   update.updatestrength(100 - parseInt(result))
-    //   //console.log("-----------------------------")
-    //   cont = 1;
-    // }
-    // cont++;
+    console.log("counter="+cont)
+    if (cont >= 20 || cont == 0) {
+      update.updatestrength(100 - signal)
+      console.log("-----------------------------")
+      cont = 1;
+    }
+    cont++;
   //   console.log(result);
-    setTimeout(update.updatestrength(100 - parseInt(result)),20);
+    //setTimeout(update.updatestrength(100-signal),5);
   }
 }
 run();
