@@ -3,11 +3,11 @@ import random
 import time 
 # import tkinter as tk
 # port=3301
-#ADDRESS= '192.168.43.36'    
+#ADDRESS= '192.168.43.36'
 
-port=23907
-# ADDRESS='192.168.1.19'          
-ADDRESS='127.0.0.1'          
+port=23911
+# ADDRESS='192.168.1.19'
+ADDRESS='127.0.0.1'
 s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 print("123")
 a=0.01
@@ -20,7 +20,10 @@ d=0
 #s.bind((ADDRESS,port))
 while True:
 	#d=d+0.02
-	st="$"+","+str(a)+","+str(b)+","+str(c)+","
+	st="#"+","+str(a)+","+str(b)+","+str(c)+","
+	#a += 0.01
+	#b += 0.01
+	#c += 0.01
 #	data, addr = s.recvfrom(1024)
 #	sata=data.decode('utf-8')
 #	print(sata)
