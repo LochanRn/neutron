@@ -155,11 +155,7 @@ var processMessage = function (map, msg) {
 var simulate3D = function (x, y, z) {
      
     anglex += parseFloat(1.57 * (x - aglx) / 10);
-<<<<<<< Updated upstream
-    angley += parseFloat(1.57 * (y - agly) / 90);
-=======
     angley -= parseFloat(1.57 * (y - agly) / 90);
->>>>>>> Stashed changes
     anglez -= parseFloat(1.57 * (z - aglz) / 10);
      //console.log(dat2[1]);
      //console.log("    ");
