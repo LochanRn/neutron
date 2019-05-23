@@ -4,7 +4,7 @@ var link = require('./communication');
 //var h= require('./testt.js');
  var controlKJ = require('./controlkj');
 var point = [0, 0, 0, 0, 0];
-var fileName = ['Index', 'Micro', 'Spectro', 'ImageProcessing'];
+var fileName = ['Index', 'Spectro', 'Micro', 'IP','Store'];
 var count = 0;
 
 var DATA_RATE = 1; //ms
@@ -83,7 +83,7 @@ $('#load').click(function () {
     link.sendData(data, 1);
 });
 
-for (i = 1; i < 5; i++) {
+for (i = 1; i <= fileName.length; i++) {
     $('#fileName' + i).html(fileName[i - 1]);
     $('#k' + i).click(function () {
         var a = $(this).attr('id');
