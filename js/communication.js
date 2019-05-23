@@ -125,12 +125,12 @@ var processMessage = function (map, msg) {
     $('#heading').html(dat[1]);
     //needle.compass(dat[1]);
     if (dat[2] == '%') {
-      $('[id^=send]').prop('disabled', false);
+      $('[id^=send]').prop('disabled', false);//
       $('#autoStatus').removeClass('red').removeClass('green').addClass('yellow');
     }
     // console.log((dat[2]));
     else if (dat[2].indexOf("destination:") !== -1) {
-      $('#info').html(dat[2]);
+      $('#infoInfo').html(dat[2]);
       if (dat[3] == "~") {
         $('#send').prop('disabled', false);
         $('#autoStatus').removeClass('red').removeClass('green').addClass('yellow');
