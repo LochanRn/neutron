@@ -14,12 +14,12 @@
 
   <body style="background-color: rgb(150,150,150)">
     <div class="window">
-        <div class="window-content">
+        <div class="window-content" style="overflow: visible;">
           <div class="pane-group">
             <div class="pane-one-fourth sidebar">
                 {% include "./sidebar.html" %}
             </div>
-            <div class="pane">
+            <div class="pane" style="overflow: visible;">
                 {% include "./map.html" %}
                 {% include "./info.html" %}
             </div>

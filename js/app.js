@@ -25,7 +25,7 @@ var data = controlKJ.processKeys();
 //console.log(data);
 link.sendData("<"+data[0]+","+data[1]+","+ data[2] + "," + data[3]+","+data[4]+","+data[5] +">", 0);
      
-console.log(data);
+// console.log(data);
     
 }, DATA_RATE);
 
