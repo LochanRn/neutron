@@ -4,7 +4,7 @@ var link = require('./communication');
 //var h= require('./testt.js');
  var controlKJ = require('./controlkj');
 var point = [0, 0, 0, 0, 0];
-var fileName = ['Index', 'Spectro', 'Micro', 'IP','Store'];
+var fileName = ['Index', 'Spectro', 'Micro', 'Store','Image Processing'];
 var count = 0;
 
 var DATA_RATE = 1; //ms
