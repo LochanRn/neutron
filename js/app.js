@@ -8,7 +8,7 @@ var fileName = ['Index', 'Spectro', 'Micro', 'Store','Image Processing'];
 var count = 0;
 
 var DATA_RATE = 1; //ms
-var map = MapLayer.initMap(12.821260, 80.038329); //12.821260, 80.038329
+var map = MapLayer.initMap(38.4065, -110.7919); //12.821260, 80.038329  38.4065 -110.7919
 var ploticon = MapLayer.getIcons("../images/Black_dot.png");
 // var testicon = MapLayer.getIcons("../images/pointer_marker.png",[35,35]);
 
