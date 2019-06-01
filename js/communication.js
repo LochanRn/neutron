@@ -130,7 +130,7 @@ var processMessage = function (map, msg) {
     }
     // console.log((dat[2]));
     else if (dat[2].indexOf("destination:") !== -1) {
-      $('#info').html(dat[2]);
+     $('#auto').html(dat[2]);
       if (dat[3] == "~") {
         $('#send').prop('disabled', false);
         $('#autoStatus').removeClass('red').removeClass('green').addClass('yellow');
