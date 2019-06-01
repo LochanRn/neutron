@@ -122,7 +122,7 @@ var processMessage = function (map, msg) {
     dat = data.split(",");
     // console.log(typeof(parseFloat(dat[1])));
     $('#heading').html(dat[1]);
-    simulate3D(dat2[1], dat[1], dat2[2]);
+    // simulate3D(dat2[1], dat[1], dat2[2]);
     //needle.compass(dat[1]);
     if (dat[2] == '%') {
       $('[id^=send]').prop('disabled', false);
@@ -130,7 +130,7 @@ var processMessage = function (map, msg) {
     }
     // console.log((dat[2]));
     else if (dat[2].indexOf("destination:") !== -1) {
-      $('#info').html(dat[2]);
+     $('#auto').html(dat[2]);
       if (dat[3] == "~") {
         $('#send').prop('disabled', false);
         $('#autoStatus').removeClass('red').removeClass('green').addClass('yellow');

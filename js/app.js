@@ -4,6 +4,8 @@ var link = require('./communication');
 //var h= require('./testt.js');
  var controlKJ = require('./controlkj');
 var point = [0, 0, 0, 0, 0];
+var polylinePoints = [];
+
 var fileName = ['Index', 'Spectro', 'Micro', 'Store','Image Processing'];
 var count = 0;
 
@@ -14,6 +16,7 @@ var ploticon = MapLayer.getIcons("../images/Black_dot.png");
 
 link.setupServer(map, 23907, 23911); // Groud Station server listning on 23907 never change!!!!
 controlKJ.initKeyboard();
+
 
 // setting up required listners
 setInterval(function () {
@@ -38,8 +41,11 @@ map.on('click', function (e) {
     point[count].addTo(map);
     $('#lat' + count).val(e.latlng.lat.toFixed(6));
     $('#lon' + count).val(e.latlng.lng.toFixed(6));
+    // polylinePoints[count][0] = e.latlng.lat.toFixed(6);
+    // polylinePoints[count][1] = e.latlng.lng.toFixed(6);
+    polylinePoints.push([e.latlng.lat.toFixed(6),e.latlng.lng.toFixed(6)])
     count = (count + 1) % 5;
-    // console.log(L.marker(e.latlng, {icon:testicon,className: 'rotated-markerdiv'}));
+    // console.log(L.marker(e.latlng, {icon:testicon,className: 'rotated-markerdiv'}));    
 });
 
 $('#remove').click(function () {
@@ -48,11 +54,30 @@ $('#remove').click(function () {
         $('#lon' + i).val(null);
         if (point[i])
             map.removeLayer(point[i]);
+            // console.log(polylinePoints[i]);
+
     }
+
+    for (i in map._layers) {
+        if (map._layers[i].options.format == undefined) {
+            console.log(i);
+            if(i!=29){  //map layer
+               
+                try {
+                    map.removeLayer(map._layers[i]);
+                } catch (e) {
+                    console.log("problem with " + e + map._layers[i]);
+                }
+        }
+        }
+    }
+
+    // map.removeLayer(polylinePoints);
     count = 0;
     link.sendData('$#', 1);
     $('[id^=send]').prop('disabled', true);
     $('#autoStatus').removeClass('yellow').removeClass('green').addClass('red');
+    // console.log(polylinePoints);
 });
 
 $('#send').click(function () {
@@ -72,21 +97,30 @@ $('#show').click(function () {
         if ($('#lat' + i).val() && $('#lon' + i).val()) {
             if (point[i])
                 map.removeLayer(point[i]);
-            point[i] = L.marker([$('#lat' + i).val(), $('#lon' + i).val()]);
+            
+            var urlNum = "../images/"+(i+1)+".png";
+            var numberPoint = L.icon({
+                iconUrl: urlNum, //"/home/fkb/github/neutron/images/"+(i+1)+".png",
+                iconAnchor: [15,15]
+             });
+            point[i] = L.marker([$('#lat' + i).val(), $('#lon' + i).val()],{icon: numberPoint} );//{icon: MapLayer.getIcons("../images/"+(i+1)+".png"), iconSize: [100, 100] });
+            console.log(count)
+            //    point[count] = L.marker(e.latlng, {icon: ploticon   }); //L.marker(e.latlng);
             point[i].addTo(map);
         }
     }
 });
 
 $('#load').click(function () {
-    var data = '#';
-    for (var i = 0; i < 5; i++) {
-        if ($('#lat' + i).val() && $('#lon' + i).val()) {
-            data += $('#lat' + i).val() + ',' + $('#lon' + i).val() + '!';
-        }
-    }
-    data = data.slice(0, -1) + '$';
-    link.sendData(data, 1);
+    // var data = '#';
+    // for (var i = 0; i < 5; i++) {
+    //     if ($('#lat' + i).val() && $('#lon' + i).val()) {
+    //         data += $('#lat' + i).val() + ',' + $('#lon' + i).val() + '!';
+    //     }
+    // }
+    // data = data.slice(0, -1) + '$';
+    // link.sendData(data, 1);
+    L.polyline(polylinePoints).addTo(map);  
 });
 
 for (i = 1; i <= fileName.length; i++) {
@@ -103,3 +137,4 @@ for (i = 1; i <= fileName.length; i++) {
         }
     });
 }
+
