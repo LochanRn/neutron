@@ -2,8 +2,10 @@ var MapLayer = require('./map');
 var link = require('./communication');
 //var control = require('./keyboard');
 //var h= require('./testt.js');
- var controlKJ = require('./controlkj');
+var controlKJ = require('./controlkj');
 var point = [0, 0, 0, 0, 0];
+var polylinePoints = [];
+var Poly;
 var fileName = ['Index', 'Spectro', 'Micro', 'Store','Image Processing'];
 var count = 0;
 
@@ -37,9 +39,15 @@ map.on('click', function (e) {
     }); //L.marker(e.latlng);
     point[count].addTo(map);
     $('#lat' + count).val(e.latlng.lat.toFixed(6));
-    $('#lon' + count).val(e.latlng.lng.toFixed(6));
+    $('#lon' + count).val(e.latlng.lng.toFixed(6));    
     count = (count + 1) % 5;
-    // console.log(L.marker(e.latlng, {icon:testicon,className: 'rotated-markerdiv'}));
+    if(polylinePoints.length > 4)
+        polylinePoints =  polylinePoints.slice(1);
+
+    polylinePoints.push([e.latlng.lat.toFixed(6),e.latlng.lng.toFixed(6)]);
+    
+    // console.log(polylinePoints);
+    count = (count + 1) % 5; 
 });
 
 $('#remove').click(function () {
@@ -49,6 +57,8 @@ $('#remove').click(function () {
         if (point[i])
             map.removeLayer(point[i]);
     }
+    map.removeLayer(Poly);
+    polylinePoints = [];
     count = 0;
     link.sendData('$#', 1);
     $('[id^=send]').prop('disabled', true);
@@ -85,6 +95,8 @@ $('#load').click(function () {
             data += $('#lat' + i).val() + ',' + $('#lon' + i).val() + '!';
         }
     }
+    Poly = L.polyline(polylinePoints).addTo(map); 
+    // console.log(Poly); 
     data = data.slice(0, -1) + '$';
     link.sendData(data, 1);
 });
